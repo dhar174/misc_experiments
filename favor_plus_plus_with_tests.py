@@ -2,7 +2,7 @@ import numpy as np
 
 from scipy.special import softmax
 from scipy.stats import ortho_group
-
+import time
 
 def generate_random_orthogonal_matrix(d, M):
     # Generate an M x d orthogonal matrix

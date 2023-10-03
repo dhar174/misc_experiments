@@ -56,7 +56,7 @@ def set_deepspeed_activation_checkpointing(deepspeed_config):
 
 def dsconfig(fr):
     ds_config = ""
-    
+
     if fr == "Large":
         ds_config = {
             "sparse_attention": {
@@ -192,7 +192,7 @@ def load_llama2_model(model_name="meta-llama/Llama-2-7b-chat-hf", quantize=False
             model = AutoModelForCausalLM.from_pretrained(model_name)
             quantized_model = quantize_dynamic(model, {torch.nn.Linear}, dtype=torch.qint8)
             # Download and load the tokenizer
-            tokenizer = AutoTokenizer.from_pretrained(model_name, use_fast=True)
+           
 
             
             print("Quantized model loaded")
@@ -208,6 +208,7 @@ def load_llama2_model(model_name="meta-llama/Llama-2-7b-chat-hf", quantize=False
                 torch.quantization.prepare(model, inplace=True)
                 model = torch.quantization.convert(model, inplace=True)
                 print("Quantized model 2 loaded")
+                tokenizer = AutoTokenizer.from_pretrained(model_name, use_fast=True)
                 return tokenizer, model
             except Exception as e:
                 print("Error loading quantized model, method 2: ", e)
